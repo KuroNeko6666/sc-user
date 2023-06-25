@@ -31,6 +31,8 @@ export class DeviceDetailComponent implements OnInit {
     this.status = Status.loading
     this.service.find(id).subscribe({
       next: (res) => {
+        console.log(res);
+
         this.device = res.data
         this.status = Status.initial
       },
@@ -44,5 +46,6 @@ export class DeviceDetailComponent implements OnInit {
   back() {
     this.router.navigateByUrl('/device/list')
   }
+
 
 }

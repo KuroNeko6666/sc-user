@@ -1,0 +1,39 @@
+<div class="bg-white shadow rounded-lg p-5">
+  <div class="flex flex-col gap-5 overflow-x-auto">
+    <div class="flex flex-row justify-between place-items-center">
+      <span class="font-bold text-lg">Tabel Daftar Pesanan</span>
+      <input type="text" class="focus:outline-none focus:ring-0 focus:border-none border-none bg-gray-100 rounded" placeholder="Cari" [formControl]="form">
+    </div>
+    <table>
+      <thead class="text-left bg-blue-500 text-white">
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Total</th>
+        <th class="px-4 py-2">Status</th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of devices?.data; let i = index">
+          <tr [ngClass]="{'bg-blue-100' : i % 2 != 0}">
+            <td class="px-4 py-2">{{ item.id }}</td>
+            <td class="px-4 py-2">{{ item.items.length }}</td>
+            <td class="px-4 py-2">
+              <div class="px-4 py-2 font-bold text-white rounded-lg" [ngClass]="item.status == 'accepted' ? 'bg-green-500' : item.status == 'rejected' ? 'bg-red-500' : 'bg-blue-500'">
+                {{ item.status == 'accepted' ? 'BERHASIL' : item.status == 'rejected' ? 'DITOLAK' : 'DIPROSES' }}
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="devices?.data?.length == 0">
+          <td colspan="6" class="text-center font-bold px-4 py-2">
+            No Device
+          </td>
+        </tr >
+        <tr *ngIf="status == rawStatus.loading">
+          <td colspan="6" class="text-center font-bold px-4 py-2">
+            <i class="fa-solid fa-spinner animate-spin text-xl"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

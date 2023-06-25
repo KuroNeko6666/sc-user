@@ -1,9 +1,10 @@
-import { HttpInterceptorFn } from "@angular/common/http";
+import { HttpInterceptorFn, HttpResponse } from "@angular/common/http";
+import { tap } from "rxjs";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
     req = req.clone({
-      withCredentials: false
+      withCredentials: true
     })
 
 return next(req)

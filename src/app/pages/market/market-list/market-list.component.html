@@ -1,0 +1,29 @@
+<div class="bg-white rounded-lg shadow p-5">
+  <div class="flex flex-col gap-5">
+    <input type="text" class="focus:outline-none focus:ring-0 focus:border-none border-none bg-gray-100 rounded" placeholder="Cari" [formControl]="form">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <ng-container *ngFor="let item of devices?.data">
+        <div class="hover:scale-105 duration-200 transition-all flex flex-col">
+          <div class="bg-gray-200 rounded-t-lg col-span-1 p-5">
+            <div class="flex flex-col">
+              <span class="font-bold text-lg">{{ item.id }}</span>
+              <span class="text-sm">{{ item.address.city + ", " + item.address.province }}</span>
+            </div>
+          </div>
+          <button (click)="addCart(item.id)" class="px-4 py-2 rounded-b-lg bg-blue-500 hover:bg-blue-600 text-white" *ngIf="!item.subcribe && !item.cart && !item.order">
+            <span>KERANJANG</span>
+          </button>
+          <div class="px-4 py-2 rounded-b-lg bg-gray-500 hover:bg-gray-600 text-white text-center" *ngIf="item.subcribe">
+            <span class="text-center">BERLANGGANAN</span>
+          </div>
+          <div class="px-4 py-2 rounded-b-lg bg-gray-500 hover:bg-gray-600 text-white text-center" *ngIf="item.cart">
+            <span class="text-center">SUDAH DITAMBAHKAN</span>
+          </div>
+          <div class="px-4 py-2 rounded-b-lg bg-gray-500 hover:bg-gray-600 text-white text-center" *ngIf="item.order && !item.subcribe">
+            <span class="text-center">SEDANG DIPROSES</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

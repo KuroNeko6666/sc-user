@@ -18,7 +18,7 @@ export class DeviceDataService {
 
   read(params: HttpParams): Observable<IPage<IDeviceData[]>> {
     let url: string = [this.host, this.path].join('')
-    return this.client.get<IPage<IDeviceData[]>>(url, { params: params })
+    return this.client.get<IPage<IDeviceData[]>>(url, { params: params})
   }
 
   find(id: string): Observable<IBase<IDeviceData>> {

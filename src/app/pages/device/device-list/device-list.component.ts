@@ -1,25 +1,28 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpParams } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Status, PageChange } from 'src/app/core/enum';
 import { IPage, IDevice, IParam } from 'src/app/core/model';
 import { DeviceService } from 'src/app/core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-device-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   templateUrl: './device-list.component.html',
   styleUrls: ['./device-list.component.css']
 })
 export class DeviceListComponent implements OnInit {
   private service: DeviceService = inject(DeviceService)
+  private router: Router = inject(Router)
 
   public form: FormControl = new FormControl('')
 
   public devices?: IPage<IDevice[]>
   public status: Status = Status.initial
+  public rawStatus = Status
 
   public dataParams: IParam = {
     page: 1,
@@ -32,7 +35,7 @@ export class DeviceListComponent implements OnInit {
     this.form.valueChanges.subscribe(res => this.search(res))
   }
 
-  pageChange(data: PageChange): void {
+  changePage(data: PageChange): void {
     switch (data) {
       case PageChange.increment:
         this.dataParams.page! += 1
@@ -42,6 +45,10 @@ export class DeviceListComponent implements OnInit {
         break;
     }
     this.read()
+  }
+
+  detail(id: string): void {
+    this.router.navigateByUrl("/device/detail/" + id)
   }
 
   limitChange(limit: number): void {

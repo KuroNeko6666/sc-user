@@ -2,6 +2,16 @@ export interface IDevice {
   id: string
   model: string
   address: IAddress
+  subcribers: number
+}
+
+export interface IDeviceMarket {
+  id: string
+  model: string
+  address: IAddress
+  subcribe: boolean
+  cart: boolean
+  order: boolean
 }
 
 export interface IAddress {

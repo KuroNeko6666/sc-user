@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IBase, IChart } from '../model';
 import { environment } from 'src/environments/environment.development';
 
@@ -16,14 +16,19 @@ export class DashboardService {
     private client: HttpClient
   ) { }
 
-  read(id: string, params: HttpParams): Observable<IBase<IChart>> {
-    let url: string = [this.host, this.path, "device/", id].join('')
-    return this.client.get<IBase<IChart>>(url, {params: params, withCredentials: true})
+  readData(id: string, params: HttpParams): Observable<IBase<IChart>> {
+    let url: string = [this.host, this.path, "device-data/", id].join('')
+    return this.client.get<IBase<IChart>>(url, {params: params})
   }
 
-  readSpeed(id: string): Observable<IBase<IChart>> {
-    let url: string = [this.host, this.path, "speed/", id].join('')
-    return this.client.get<IBase<IChart>>(url)
+  readSpeed(id: string, params: HttpParams): Observable<IBase<IChart>> {
+    let url: string = [this.host, this.path, "device-speed/", id].join('')
+    return this.client.get<IBase<IChart>>(url, {params: params})
+  }
+
+  readTotal(): Observable<IBase<number>> {
+    let url: string = [this.host, this.path, "device-total/"].join('')
+    return this.client.get<IBase<number>>(url)
   }
 
 }

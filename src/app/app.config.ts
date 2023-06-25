@@ -8,6 +8,8 @@ import { authInterceptor } from './core/interceptor/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
   ]
 };

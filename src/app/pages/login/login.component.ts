@@ -4,7 +4,8 @@ import { Component, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services';
-import { ButtonComponent, InputFieldComponent } from 'src/app/shared/components';
+
+
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,6 @@ import { ButtonComponent, InputFieldComponent } from 'src/app/shared/components'
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ButtonComponent,
-    InputFieldComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

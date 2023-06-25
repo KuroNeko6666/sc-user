@@ -1,0 +1,41 @@
+<div class="bg-white shadow rounded-lg p-5">
+  <div class="flex flex-col gap-5 overflow-x-auto">
+    <div class="flex flex-row justify-between place-items-center">
+      <span class="font-bold text-lg">Tabel Daftar Keranjang</span>
+    </div>
+    <table>
+      <thead class="text-left bg-blue-500 text-white">
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Model</th>
+        <th class="px-4 py-2">Alamat</th>
+        <th class="px-4 py-2">Kota</th>
+        <th class="px-4 py-2">Provinsi</th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of devices?.data; let i = index">
+          <tr [ngClass]="{'bg-blue-100' : i % 2 != 0}">
+            <td class="px-4 py-2">{{ item.id }}</td>
+            <td class="px-4 py-2">{{ item.model }}</td>
+            <td class="px-4 py-2">{{ item.address.address }}</td>
+            <td class="px-4 py-2">{{ item.address.city }}</td>
+            <td class="px-4 py-2">{{ item.address.province }}</td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="devices?.data?.length == 0">
+          <td colspan="6" class="text-center font-bold px-4 py-2">
+            No Device
+          </td>
+        </tr >
+        <tr *ngIf="status == rawStatus.loading">
+          <td colspan="6" class="text-center font-bold px-4 py-2">
+            <i class="fa-solid fa-spinner animate-spin text-xl"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="flex flex-row justify-end">
+      <button class="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-bold" (click)="checkOut()" >PESAN</button>
+    </div>
+  </div>
+
+</div>

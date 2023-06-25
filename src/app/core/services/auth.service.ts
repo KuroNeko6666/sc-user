@@ -27,14 +27,18 @@ export class AuthService {
     return this.client.put<IBase<string>>(url, data)
   }
 
-  validate(): Observable<boolean> {
-    let url: string = [this.host, this.path].join('')
-    return this.client.get<boolean>(url)
+  validate(): boolean {
+    return this.user != undefined ? true : false
   }
 
   logout(): Observable<any> {
     let url: string = [this.host, this.path].join('')
+    this.delete()
     return this.client.delete(url)
+  }
+
+  delete(): void {
+    localStorage.clear()
   }
 
   save(user: IUser): void {

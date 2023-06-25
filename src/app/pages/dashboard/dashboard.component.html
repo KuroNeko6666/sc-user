@@ -1,2 +1,57 @@
-<p></p>
+<app-home>
 
+  <div class="flex flex-col text-gray-700">
+
+    <div class="flex flex-row justify-between place-items-center">
+      <div class="flex flex-col py-10">
+        <span class="font-bold text-white text-3xl">DASHBOARD</span>
+        <span class="font-normal text-white text-lg">home > dashboard</span>
+      </div>
+      <div class="relative select-none">
+        <button class="flex flex-row place-items-center gap-2 px-4 py-2 bg-white hover:bg-blue-200 rounded-lg shadow"
+          (click)="drawerToggler()">
+          <span>{{ device?.id }}</span>
+          <i class="fa-solid fa-caret-down text-xl"></i>
+        </button>
+        <ul class="absolute right-0 top-[110%] rounded bg-white shadow py-2 z-20" *ngIf="drawer">
+          <ng-container *ngFor="let item of devices">
+            <li class="px-4 py-2 hover:bg-blue-200" (click)="changeDevice(item)">
+              {{ item.id }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+    <div class="h-full w-full flex flex-col justify-center place-items-center" *ngIf="status == rawStatus.loading">
+      <i class="fa-solid fa-spinner animate-spin text-2xl text-white"></i>
+    </div>
+
+    <div class="h-full w-full flex flex-col" *ngIf="status == rawStatus.initial">
+
+      <div class="grid grid-cols-12 gap-5">
+        <div class="col-span-4">
+          <app-chart-speed [device]="device"></app-chart-speed>
+        </div>
+        <div class="col-span-8">
+          <app-chart-created [device]="device"></app-chart-created>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div
+      class="h-full w-full flex flex-col justify-center place-items-center text-gray-700 bg-white shadow rounded-lg py-5"
+      *ngIf="status == rawStatus.error">
+      <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500"></i>
+      <span>Gagal memuat data</span>
+      <button type="button" (click)="getList()"
+        class="px-4 py-2 rounded-lg self-center w-fit text-blue-500 hover:text-blue-600 font-bold hover:scale-105 transition-all duration-200">
+        <div class="flex flex-row justify-center place-items-center gap-2">
+          <span>REFRESH</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</app-home>
