@@ -24,7 +24,7 @@ export class DeviceService {
 
   readMarket(params: HttpParams): Observable<IPage<IDeviceMarket[]>> {
     let url: string = [this.host, this.path, "/market"].join('')
-    return this.client.get<IPage<IDeviceMarket[]>>(url, { params: params})
+    return this.client.get<IPage<IDeviceMarket[]>>(url, { params: params, withCredentials:true})
   }
 
   find(id: string): Observable<IBase<IDevice>> {

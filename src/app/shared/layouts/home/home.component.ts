@@ -55,13 +55,7 @@ export class HomeComponent {
   }
 
   public onLogout(): void {
-    this.service.logout().subscribe({
-      next: (res) => {
-        this.router.navigateByUrl("/login")
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+    this.service.logout()
+    this.router.navigateByUrl("/login")
   }
 }

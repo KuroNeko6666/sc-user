@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { IBase, IUser } from '../model';
+import { ILogin } from '../model/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class AuthService {
     private client: HttpClient
   ) { }
 
-  login(data: FormData): Observable<IBase<IUser>> {
+  login(data: FormData): Observable<IBase<ILogin>> {
     let url: string = [this.host, this.path].join('')
-    return this.client.post<IBase<IUser>>(url, data)
+    return this.client.post<IBase<ILogin>>(url, data)
   }
 
   register(data: FormData): Observable<IBase<string>> {
@@ -31,18 +32,17 @@ export class AuthService {
     return this.user != undefined ? true : false
   }
 
-  logout(): Observable<any> {
-    let url: string = [this.host, this.path].join('')
+  logout(): void {
     this.delete()
-    return this.client.delete(url)
   }
 
   delete(): void {
     localStorage.clear()
   }
 
-  save(user: IUser): void {
-    localStorage.setItem(this.storage, JSON.stringify(user))
+  save(data: ILogin): void {
+    localStorage.setItem(this.storage, JSON.stringify(data.user))
+    localStorage.setItem("token", JSON.stringify(data.token))
   }
 
   get user(): IUser | undefined {
@@ -50,6 +50,13 @@ export class AuthService {
     if (raw == null) { return undefined }
     let user: IUser = JSON.parse(raw) as IUser
     return user
+  }
+
+  get token(): string | undefined {
+    let raw = localStorage.getItem("token")
+    if (raw == null) { return undefined }
+    let res: string = JSON.parse(raw)
+    return res
   }
 
 
